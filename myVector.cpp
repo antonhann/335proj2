@@ -5,6 +5,8 @@ void vectorMedian (const std::vector<int> * instructions){
     std::vector<int>::iterator vecIt;
     bool inserted;
     for(auto it = instructions->begin(); it != instructions->end(); ++it){
+        inserted = false;
+        std::cout << *it << std::endl;
         if(*it != -1){
             if(myVec.empty()){
                 myVec.push_back(*it);
