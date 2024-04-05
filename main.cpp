@@ -4,7 +4,7 @@
 #include <vector>
 #include <climits>
 #include <cmath>
-#include "myList.cpp"
+#include "myList.hpp"
 int main (){
     std::ifstream file("textinput.txt");
     if (file.fail()) {
