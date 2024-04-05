@@ -6,6 +6,7 @@
 #include <cmath>
 #include "myVector.hpp"
 #include "myList.hpp"
+#include "myHeap.hpp"
 int main (){
     std::ifstream file("textinput.txt");
     if (file.fail()) {

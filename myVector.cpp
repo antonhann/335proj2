@@ -3,6 +3,7 @@ void vectorMedian (const std::vector<int> * instructions){
     std::vector<int> myVec;
     std::vector<int> res;
     std::vector<int>::iterator vecIt;
+    std::vector<int>::iterator lowerBound;
     bool inserted;
     for(auto it = instructions->begin(); it != instructions->end(); ++it){
         inserted = false;
@@ -10,15 +11,11 @@ void vectorMedian (const std::vector<int> * instructions){
             if(myVec.empty()){
                 myVec.push_back(*it);
             }else{
-                for(vecIt = myVec.begin(); vecIt != myVec.end(); ++vecIt){
-                    if(*vecIt >= *it){
-                        myVec.insert(vecIt, *it);
-                        inserted = true;
-                        break;
-                    }
-                }
-                if(!inserted){
+                lowerBound = std::lower_bound(myVec.begin(),myVec.end(), *it);
+                if(lowerBound == myVec.end()){
                     myVec.push_back(*it);
+                }else{
+                    myVec.insert(lowerBound,*it);
                 }
             }
         }else{
