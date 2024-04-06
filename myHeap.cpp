@@ -12,7 +12,13 @@ void insertHeapMedian(std::priority_queue<int>& large, std::priority_queue<int, 
             small.push(val);
         }
     }else{
-        if(val >= large.top()){
+        std::priority_queue<int> temp(large);
+        int minTop;
+        while(!temp.empty()){
+            minTop = temp.top();
+            temp.pop();
+        }
+        if(val >= minTop){
             large.push(val);
             if(large.size() == small.size() + 1){
                 std::priority_queue<int> temp(large);
@@ -79,6 +85,23 @@ void heapMedian (const std::vector<int> * instructions){
             while(!max.empty()){
                 small.push(max.top());
                 max.pop();
+            }
+            if(large.size() == small.size() + 1){
+                std::priority_queue<int> temp(large);
+                std::priority_queue<int, std::vector<int>, std::greater<int>> min;
+                while(!temp.empty()){
+                    min.push(temp.top());
+                    temp.pop();
+                }
+                small.push(min.top());
+                min.pop();
+                while(!large.empty()){
+                    large.pop();
+                }
+                while(!min.empty()){
+                    large.push(min.top());
+                    min.pop();
+                }
             }
             res.push_back(median);
         }
