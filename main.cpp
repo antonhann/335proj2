@@ -24,6 +24,7 @@ int main (){
         }
     }
     // listMedian(data);
-    vectorMedian(data);
+    // vectorMedian(data);
+    heapMedian(data);
     return 0;
 }
