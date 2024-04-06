@@ -7,6 +7,7 @@
 #include "myVector.hpp"
 #include "myList.hpp"
 #include "myHeap.hpp"
+#include "myAVLtree.hpp"
 int main (){
     std::ifstream file("textinput.txt");
     if (file.fail()) {
@@ -26,5 +27,6 @@ int main (){
     // listMedian(data);
     // vectorMedian(data);
     heapMedian(data);
+    // treeMedian(data);
     return 0;
 }
