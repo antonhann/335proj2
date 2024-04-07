@@ -155,7 +155,6 @@ void insertAvlMedian(AvlTree& small, AvlTree& large, int val){
     }
     else if (large.empty()){
         AvlNode* smallMax = small.getMax();
-        // std::cout << "small element max: " << smallMax->element << std::endl;
         if(val >= smallMax->element){
             insert(val, large.root);
             large.amount += 1;
@@ -167,12 +166,11 @@ void insertAvlMedian(AvlTree& small, AvlTree& large, int val){
             large.amount += 1;
         }
     }else{
-        // std::cout << "large element max: " << large.getMin()->element << std::endl;
-        if(val >= large.getMin()->element){
+        AvlNode* largeMin = large.getMin();
+        if(val >= largeMin->element){
             insert(val, large.root);
             large.amount += 1;
             if(large.amount == small.amount + 1){
-                AvlNode* largeMin = large.getMin();
                 insert(largeMin->element,small.root);
                 small.amount += 1;
                 remove(largeMin->element,large.root);
@@ -212,21 +210,8 @@ void treeMedian (const std::vector<int> * instructions){
                 large.amount -= 1;
             }
         }
-        // std::cout << "small (" << small.amount << ")\n";
-        // printBinaryTree(small.root);
-        // std::cout << "large (" << large.amount << ")\n";
-        // printBinaryTree(large.root);
     }
     for(int i = 0; i < res.size(); i++){
         std::cout << res[i] << " ";
     }   
-    // AvlNode *root = nullptr;
-    // for(auto it = instructions->begin(); it != instructions->end(); ++it){
-    //     if(*it != -1){
-    //         insert(*it, root);
-    //     }else{
-    //         remove(1,root);
-    //     }
-    // }
-    // printBinaryTree(root);
 }
