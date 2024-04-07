@@ -33,6 +33,7 @@ void heapMedian (const std::vector<int> * instructions){
     std::priority_queue<int, std::vector<int>, std::less<int>> small; //max heap to hold the smaller numbers
     std::priority_queue<int, std::vector<int>, std::greater<int>> large; //min heap to hold the greater numbers
     std::vector<int> res;
+    const auto start = std::chrono::steady_clock::now();
     for(auto it = instructions->begin(); it != instructions->end(); ++it){
         if(*it != -1){
             insertHeapMedian(small,large,*it);
@@ -45,6 +46,9 @@ void heapMedian (const std::vector<int> * instructions){
             }
         }
     }
+    const auto end = std::chrono::steady_clock::now();
+    int time = std::chrono::duration <double, std::micro> (end - start).count();
+    std::cout << "Heap Median ran in "<<  time << " microseconds." << std::endl;
     for(int i = 0; i < res.size(); i++){
         std::cout << res[i] << " ";
     }   

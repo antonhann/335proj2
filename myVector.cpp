@@ -5,6 +5,7 @@ void vectorMedian (const std::vector<int> * instructions){
     std::vector<int>::iterator vecIt;
     std::vector<int>::iterator lowerBound;
     bool inserted;
+    const auto start = std::chrono::steady_clock::now();
     for(auto it = instructions->begin(); it != instructions->end(); ++it){
         inserted = false;
         if(*it != -1){
@@ -25,6 +26,9 @@ void vectorMedian (const std::vector<int> * instructions){
             myVec.erase(vecIt);
         }
     }
+    const auto end = std::chrono::steady_clock::now();
+    int time = std::chrono::duration <double, std::micro> (end - start).count();
+    std::cout << "Vector Median ran in "<<  time << " microseconds." << std::endl;
     for(int i = 0; i < res.size(); i++){
         std::cout << res[i] << " ";
     }  

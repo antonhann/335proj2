@@ -24,9 +24,9 @@ int main (){
             data->push_back(-1);
         }
     }
-    // listMedian(data);
-    // vectorMedian(data);
-    // heapMedian(data);
+    listMedian(data);
+    vectorMedian(data);
+    heapMedian(data);
     treeMedian(data);
     return 0;
 }
