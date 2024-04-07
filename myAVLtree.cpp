@@ -6,6 +6,9 @@ int height(const AvlNode *t ){
 int max(int x, int y){
     return (x >= y) ? x : y;
 }
+bool AvlTree::empty(){
+    return amount == 0;
+}
 void rightRotate( AvlNode * & k2 ){
     AvlNode *k1 = k2->left;
     k2->left = k1->right;
@@ -76,7 +79,10 @@ void remove( const int & x, AvlNode *&t){
         if(t->amount > 1){
             t->amount -= 1;
         }else{
-            if(t->left == nullptr && t->right == nullptr){
+            if(t->amount > 1){
+                t->amount -= 1;
+            }
+            else if(t->left == nullptr && t->right == nullptr){
                 delete t;
                 t = nullptr;
                 return;
@@ -128,12 +134,99 @@ void printBinaryTree(AvlNode* root) {
         std::cout << std::endl;
     }
 }
-void treeMedian (const std::vector<int> * instructions){
-    AvlNode *root = nullptr;
-    for(auto it = instructions->begin(); it != instructions->end(); ++it){
-        insert(*it, root);
+AvlNode* AvlTree::getMin(){
+    AvlNode* curr = root;
+    while(curr->left != nullptr){
+        curr = curr->left;
     }
-    remove(2,root);
-    printBinaryTree(root);
-
+    return curr;
+}
+AvlNode* AvlTree::getMax(){
+    AvlNode* curr = root;
+    while(curr->right != nullptr){
+        curr = curr->right;
+    }
+    return curr;
+}
+void insertAvlMedian(AvlTree& small, AvlTree& large, int val){
+    if(small.empty()){
+        insert(val, small.root);
+        small.amount += 1;
+    }
+    else if (large.empty()){
+        AvlNode* smallMax = small.getMax();
+        // std::cout << "small element max: " << smallMax->element << std::endl;
+        if(val >= smallMax->element){
+            insert(val, large.root);
+            large.amount += 1;
+        }
+        else{
+            insert(smallMax->element,large.root);
+            remove(smallMax->element, small.root);
+            insert(val, small.root);
+            large.amount += 1;
+        }
+    }else{
+        // std::cout << "large element max: " << large.getMin()->element << std::endl;
+        if(val >= large.getMin()->element){
+            insert(val, large.root);
+            large.amount += 1;
+            if(large.amount == small.amount + 1){
+                AvlNode* largeMin = large.getMin();
+                insert(largeMin->element,small.root);
+                small.amount += 1;
+                remove(largeMin->element,large.root);
+                large.amount -= 1;
+            }
+        }else{
+            insert(val, small.root);
+            small.amount += 1;
+            if(small.amount == large.amount + 2){
+                AvlNode* smallMax = small.getMax();
+                insert(smallMax->element,large.root);
+                large.amount += 1;
+                remove(smallMax->element, small.root);
+                small.amount -= 1;
+            }
+        }
+    }
+}
+void treeMedian (const std::vector<int> * instructions){
+    AvlTree small;
+    AvlTree large;
+    std::vector<int> res;
+    for(auto it = instructions->begin(); it != instructions->end(); ++it){
+        if(*it != -1){
+            insertAvlMedian(small,large,*it);
+        }else{
+            AvlNode* smallMax = small.getMax();
+            // std::cout << "Median Popped: " << smallMax->element << std::endl;
+            res.push_back(smallMax->element);
+            remove(smallMax->element,small.root);
+            small.amount -= 1;
+            if(large.amount == small.amount + 1){
+                AvlNode* largeMin = large.getMin();
+                insert(largeMin->element, small.root);
+                small.amount += 1;
+                remove(largeMin->element, large.root);
+                large.amount -= 1;
+            }
+        }
+        // std::cout << "small (" << small.amount << ")\n";
+        // printBinaryTree(small.root);
+        // std::cout << "large (" << large.amount << ")\n";
+        // printBinaryTree(large.root);
+    }
+    for(int i = 0; i < res.size(); i++){
+        std::cout << res[i] << " ";
+    }   
+    // AvlNode *root = nullptr;
+    // for(auto it = instructions->begin(); it != instructions->end(); ++it){
+    //     if(*it != -1){
+    //         insert(*it, root);
+    //     }else{
+    //         remove(1,root);
+    //     }
+    // }
+    // printBinaryTree(root);
 }

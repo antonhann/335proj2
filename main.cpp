@@ -26,7 +26,7 @@ int main (){
     }
     // listMedian(data);
     // vectorMedian(data);
-    heapMedian(data);
-    // treeMedian(data);
+    // heapMedian(data);
+    treeMedian(data);
     return 0;
 }
