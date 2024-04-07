@@ -28,7 +28,7 @@ void vectorMedian (const std::vector<int> * instructions){
     }
     const auto end = std::chrono::steady_clock::now();
     int time = std::chrono::duration <double, std::micro> (end - start).count();
-    std::cout << "Vector Median ran in "<<  time << " microseconds." << std::endl;
+    // std::cout << "Vector Median ran in "<<  time << " microseconds." << std::endl;
     for(int i = 0; i < res.size(); i++){
         std::cout << res[i] << " ";
     }  

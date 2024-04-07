@@ -153,24 +153,13 @@ void insertAvlMedian(AvlTree& small, AvlTree& large, int val){
         insert(val, small.root);
         small.amount += 1;
     }
-    else if (large.empty()){
+    else{
         AvlNode* smallMax = small.getMax();
         if(val >= smallMax->element){
             insert(val, large.root);
             large.amount += 1;
-        }
-        else{
-            insert(smallMax->element,large.root);
-            remove(smallMax->element, small.root);
-            insert(val, small.root);
-            large.amount += 1;
-        }
-    }else{
-        AvlNode* largeMin = large.getMin();
-        if(val >= largeMin->element){
-            insert(val, large.root);
-            large.amount += 1;
             if(large.amount == small.amount + 1){
+                AvlNode* largeMin = large.getMin();
                 insert(largeMin->element,small.root);
                 small.amount += 1;
                 remove(largeMin->element,large.root);
@@ -214,7 +203,7 @@ void treeMedian (const std::vector<int> * instructions){
     }
     const auto end = std::chrono::steady_clock::now();
     int time = std::chrono::duration <double, std::micro> (end - start).count();
-    std::cout << "AVL Tree Median ran in "<<  time << " microseconds." << std::endl;
+    // std::cout << "AVL Tree Median ran in "<<  time << " microseconds." << std::endl;
     for(int i = 0; i < res.size(); i++){
         std::cout << res[i] << " ";
     }   
