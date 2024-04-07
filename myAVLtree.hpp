@@ -11,7 +11,7 @@ struct AvlNode
     AvlNode *left;
     AvlNode *right;
     int height;
-    int amount;
+    int amount; //amount counter to take care of duplicates
 
     AvlNode( const int & ele, AvlNode *lt, AvlNode *rt, int h = 1, int a = 1)
     :element{ ele }, left{ lt }, right{ rt }, height{ h }, amount { a }{};
@@ -21,11 +21,11 @@ struct AvlNode
 };
 class AvlTree{
     public:
-    int amount;
+    int amount; //amount counter to take care of size constraint
     AvlNode* root;
     AvlTree() : amount(0), root(nullptr) {};
     bool empty();
-    AvlNode* getMin();
+    AvlNode* getMin(); 
     AvlNode* getMax();
 };
 int height(const AvlNode *t );
