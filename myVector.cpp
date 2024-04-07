@@ -4,10 +4,8 @@ void vectorMedian (const std::vector<int> * instructions){
     std::vector<int> res;
     std::vector<int>::iterator vecIt;
     std::vector<int>::iterator lowerBound;
-    bool inserted;
     const auto start = std::chrono::steady_clock::now();
     for(auto it = instructions->begin(); it != instructions->end(); ++it){
-        inserted = false;
         if(*it != -1){
             if(myVec.empty()){
                 myVec.push_back(*it);

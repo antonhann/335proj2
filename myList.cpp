@@ -3,7 +3,6 @@ void listMedian (const std::vector<int> * instructions){
     std::list<int> myList;
     std::vector<int> res;
     std::list<int>::iterator listIt;
-    bool inserted;
     const auto start = std::chrono::steady_clock::now();
     for(auto it = instructions->begin(); it != instructions->end(); ++it){
         inserted = false;
@@ -14,11 +13,10 @@ void listMedian (const std::vector<int> * instructions){
                 for(listIt = myList.begin(); listIt != myList.end(); ++listIt){
                     if(*listIt >= *it){
                         myList.insert(listIt, *it);
-                        inserted = true;
                         break;
                     }
                 }
-                if(!inserted){
+                if(listIt == myList.end()){
                     myList.push_back(*it);
                 }
             }
