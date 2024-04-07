@@ -3,24 +3,20 @@ void listMedian (const std::vector<int> * instructions){
     std::list<int> myList;
     std::vector<int> res;
     std::list<int>::iterator listIt;
-    bool inserted;
+    bool inserted; //check if the value was inserted inside the iteration of the list
     const auto start = std::chrono::steady_clock::now();
-    for(auto it = instructions->begin(); it != instructions->end(); ++it){
-        inserted = false;
-        if(*it != -1){
-            if(myList.empty()){
-                myList.push_front(*it);
-            }else{
-                for(listIt = myList.begin(); listIt != myList.end(); ++listIt){
-                    if(*listIt >= *it){
-                        myList.insert(listIt, *it);
-                        inserted = true;
-                        break;
-                    }
+    for(auto it = instructions->begin(); it != instructions->end(); ++it){//iterate through the instructions
+        inserted = false; //reset the inserted bool 
+        if(*it != -1){ //if the value isnt -1, we insert the value to the list
+            for(listIt = myList.begin(); listIt != myList.end(); ++listIt){
+                if(*listIt >= *it){
+                    myList.insert(listIt, *it);
+                    inserted = true;
+                    break;
                 }
-                if(!inserted){
-                    myList.push_back(*it);
-                }
+            }
+            if(!inserted){
+                myList.push_back(*it);
             }
         }else{
             listIt = myList.begin();
